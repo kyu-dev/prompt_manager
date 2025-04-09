@@ -2,7 +2,14 @@ import bcrypt from 'bcrypt';
 import client from '../utils/db.js';
 
 export const loginUser = (req, res) => {
-  res.json({ message: 'Connexion réuissie !' });
+  if (req.isAuthenticated()) {
+    res.json({
+      message: 'Connexion réussie !',
+      user: req.user, // ← là tu renvoies bien l'utilisateur au frontend
+    });
+  } else {
+    res.status(401).json({ message: 'Non autorisé' });
+  }
 };
 //teste
 
