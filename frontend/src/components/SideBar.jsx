@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { House } from 'lucide-react';
 import { Button } from './ui/button';
 
-const NavBar = () => {
+const SideBar = () => {
   return (
     <nav className="bg-amber-400">
       <Link to="/" className="flex flex-col">
@@ -14,4 +14,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default SideBar;
