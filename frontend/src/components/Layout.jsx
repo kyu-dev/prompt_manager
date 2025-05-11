@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import SideBar from './SideBar';
 
 const Layout = () => (
-  <div>
+  <div className=" flex flex-row h-full">
     <SideBar />
     <main>
       <Outlet /> {/* Là où les pages enfants s'affichent */}
