@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { House, PanelLeftClose, PanelLeftOpen, CirclePlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
+  //liens des button
   const links = [
     {
       to: '/',
@@ -46,7 +48,7 @@ const SideBar = () => {
           isOpen ? 'w-64' : 'w-16'
         } flex flex-col justify-between transition-all duration-300 ease-in-out overflow-hidden`}
       >
-        <div className="flex flex-col px-2">
+        <div className="flex flex-col px-2 gap-2 pt-3">
           {links.map(({ to, icon, label, variant, className }) => (
             <Button asChild key={label} variant={variant} className={className}>
               <Link to={to}>
@@ -55,6 +57,12 @@ const SideBar = () => {
               </Link>
             </Button>
           ))}
+          {isOpen && (
+            <>
+              <h3 className="text-gray-700">All Prompt</h3>
+              <Separator />
+            </>
+          )}
         </div>
 
         <div className="p-4 mt-auto">
