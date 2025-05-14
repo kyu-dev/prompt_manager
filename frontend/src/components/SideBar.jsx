@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { House, PanelLeftClose, PanelLeftOpen, CirclePlus } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
+  const links = [
+    {
+      to: '/',
+      icon: <House size={20} />,
+      label: 'Home',
+      variant: 'ghost',
+      className: '',
+    },
+    {
+      to: '/new-prompt',
+      icon: <CirclePlus size={20} />,
+      label: 'Créer un prompt',
+    },
+  ];
+
   const toggleSidebar = () => {
-    setIsOpen((prev) => !prev); //switch l'état de isOpen de true à false et de false à true
+    setIsOpen((prev) => !prev);
   };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
-        //cmd+k pour ouvrir la sidebar
         toggleSidebar();
       }
     };
@@ -20,33 +35,33 @@ const SideBar = () => {
     document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown); //clean l'event listener
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
   return (
     <div className="flex h-screen">
       <nav
-        className={`bg-blue-950 ${
-          isOpen ? 'w-64' : 'w-16' // si isOpen est true agrandie la w de la sidebar
-        } flex flex-col  justify-between`}
+        className={`bg-background border-r ${
+          isOpen ? 'w-64' : 'w-16'
+        } flex flex-col justify-between transition-all duration-300 ease-in-out overflow-hidden`}
       >
-        <div className="flex flex-col p-4 text-white gap-5">
-          <Link to="/" className="flex items-center gap-2 ">
-            <House size={20} />
-            {isOpen && <span>Home</span>}
-          </Link>
-
-          <div className="flex items-center gap-2 ">
-            <CirclePlus size={20} />
-            {isOpen && <span>Créer un prompt</span>}
-          </div>
+        <div className="flex flex-col px-2">
+          {links.map(({ to, icon, label, variant, className }) => (
+            <Button asChild key={label} variant={variant} className={className}>
+              <Link to={to}>
+                {icon}
+                {isOpen && <span>{label}</span>}
+              </Link>
+            </Button>
+          ))}
         </div>
 
         <div className="p-4 mt-auto">
-          <button
+          <Button
             onClick={toggleSidebar}
-            className="focus:outline-none text-white"
+            variant="ghost"
+            size="icon"
             aria-label="Toggle Sidebar"
           >
             {isOpen ? (
@@ -54,7 +69,7 @@ const SideBar = () => {
             ) : (
               <PanelLeftOpen size={20} />
             )}
-          </button>
+          </Button>
         </div>
       </nav>
     </div>
