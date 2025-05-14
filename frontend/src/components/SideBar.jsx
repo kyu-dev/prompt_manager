@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { House, PanelLeftClose, PanelLeftOpen, CirclePlus } from 'lucide-react';
+import {
+  House,
+  PanelLeftClose,
+  PanelLeftOpen,
+  CirclePlus,
+  FolderPlus,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
@@ -20,6 +26,10 @@ const SideBar = () => {
       to: '/new-prompt',
       icon: <CirclePlus size={20} />,
       label: 'Créer un prompt',
+    },
+    {
+      icon: <FolderPlus size={20} />,
+      label: 'Créer un fichier',
     },
   ];
 
@@ -58,10 +68,10 @@ const SideBar = () => {
             </Button>
           ))}
           {isOpen && (
-            <>
-              <h3 className="text-gray-700">All Prompt</h3>
+            <div className="pt-4">
+              <h3 className="text-gray-700 ">All Prompt</h3>
               <Separator />
-            </>
+            </div>
           )}
         </div>
 
