@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 import {
   House,
   PanelLeftClose,
   PanelLeftOpen,
   CirclePlus,
   FolderPlus,
+  LibraryBig,
+  Star,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { CommandMenu } from './CommandMenu';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -22,7 +24,20 @@ const SideBar = () => {
       icon: <House />,
       label: 'Home',
       variant: 'ghost',
-      className: '',
+    },
+    {
+      to: '/library',
+      type: 'link',
+      icon: <LibraryBig />,
+      label: 'Library',
+      variant: 'ghost',
+    },
+    {
+      to: '/library',
+      type: 'link',
+      icon: <Star />,
+      label: 'Favoris',
+      variant: 'ghost',
     },
     {
       type: 'button',
@@ -32,7 +47,7 @@ const SideBar = () => {
     {
       type: 'button',
       icon: <FolderPlus size={20} />,
-      label: 'Créer un fichier',
+      label: 'Créer un dossier',
       variant: 'secondary',
     },
   ];
@@ -55,9 +70,9 @@ const SideBar = () => {
     };
   }, []);
 
-  // ============================================
-  // =============== COMPONENTS =================
-  // ============================================
+  //============================================//
+  //=============== COMPONENTS =================//
+  //============================================//
 
   return (
     <div className="flex h-screen">
@@ -67,10 +82,16 @@ const SideBar = () => {
         } flex flex-col justify-between transition-all duration-300 ease-in-out overflow-hidden`}
       >
         <div className="flex flex-col px-2 gap-2 pt-3">
+          <CommandMenu isOpen={isOpen} />
           {actions.map((item) => {
             if (item.type === 'link') {
               return (
-                <Button asChild key={item.label} variant={item.variant}>
+                <Button
+                  asChild
+                  key={item.label}
+                  variant={item.variant}
+                  className={isOpen ? 'justify-start' : 'justify-center'}
+                >
                   <Link to={item.to}>
                     {item.icon}
                     {isOpen && <span>{item.label}</span>}
@@ -80,7 +101,11 @@ const SideBar = () => {
             }
             if (item.type === 'button') {
               return (
-                <Button variant={item.variant}>
+                <Button
+                  className={item.className}
+                  variant={item.variant}
+                  onClick={onclick}
+                >
                   {item.icon}
                   {isOpen && <span>{item.label}</span>}
                 </Button>
@@ -90,9 +115,9 @@ const SideBar = () => {
           })}
 
           {isOpen && (
-            <div className="w-full pt-4">
-              <h3 className="whitespace-nowrap">All prompt</h3>
+            <div className="flex flex-col w-full pt-4 gap-2">
               <Separator />
+              <h3 className="whitespace-nowrap">Vos dossiers</h3>
             </div>
           )}
         </div>
