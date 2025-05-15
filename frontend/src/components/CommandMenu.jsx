@@ -46,10 +46,15 @@ export function CommandMenu({ isOpen }) {
         <Command className="rounded-lg border shadow-md">
           <CommandInput placeholder="Tape un nom de prompt..." />
           <CommandList>
-            <CommandEmpty>Aucun résultat trouvé.</CommandEmpty>
-            <CommandItem>Prompt favori</CommandItem>
-            <CommandItem>Créer un nouveau prompt</CommandItem>
-            <CommandItem>Bibliothèque</CommandItem>
+            <CommandEmpty>
+              Génère une idée de startup en 10 secondes
+            </CommandEmpty>
+            <CommandItem>Décris un monde où les humains volent</CommandItem>
+            <CommandItem>Trouve un nom stylé pour une app météo</CommandItem>
+            <CommandItem>
+              Crée un univers de science-fiction original
+            </CommandItem>
+            <CommandItem>Propose une idée de roman en une phrase</CommandItem>
           </CommandList>
         </Command>
       </DialogContent>
