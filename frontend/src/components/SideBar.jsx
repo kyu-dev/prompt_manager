@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+
 import {
   House,
   PanelLeftClose,
@@ -30,6 +30,7 @@ const SideBar = () => {
       label: 'Créer un prompt',
     },
     {
+      type: 'button',
       icon: <FolderPlus size={20} />,
       label: 'Créer un fichier',
       variant: 'secondary',
@@ -53,6 +54,10 @@ const SideBar = () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
+
+  // ============================================
+  // =============== COMPONENTS =================
+  // ============================================
 
   return (
     <div className="flex h-screen">
@@ -85,16 +90,10 @@ const SideBar = () => {
           })}
 
           {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
-              className="pt-4"
-            >
-              <h3>All prompt</h3>
+            <div className="w-full pt-4">
+              <h3 className="whitespace-nowrap">All prompt</h3>
               <Separator />
-            </motion.div>
+            </div>
           )}
         </div>
 
