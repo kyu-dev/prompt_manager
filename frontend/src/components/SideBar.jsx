@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { SidebarAction } from './SidebarAction';
 import {
   House,
   PanelLeftClose,
@@ -83,36 +83,9 @@ const SideBar = () => {
       >
         <div className="flex flex-col px-2 gap-2 pt-3">
           <CommandMenu isOpen={isOpen} />
-          {actions.map((item) => {
-            if (item.type === 'link') {
-              return (
-                <Button
-                  asChild
-                  key={item.label}
-                  variant={item.variant}
-                  className={isOpen ? 'justify-start' : 'justify-center'}
-                >
-                  <Link to={item.to}>
-                    {item.icon}
-                    {isOpen && <span>{item.label}</span>}
-                  </Link>
-                </Button>
-              );
-            }
-            if (item.type === 'button') {
-              return (
-                <Button
-                  className={item.className}
-                  variant={item.variant}
-                  onClick={onclick}
-                >
-                  {item.icon}
-                  {isOpen && <span>{item.label}</span>}
-                </Button>
-              );
-            }
-            return null;
-          })}
+          {actions.map((item) => (
+            <SidebarAction key={item.label} item={item} isOpen={isOpen} />
+          ))}
 
           {isOpen && (
             <div className="flex flex-col w-full pt-4 gap-2">
