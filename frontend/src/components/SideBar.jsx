@@ -82,7 +82,10 @@ const SideBar = () => {
         } flex flex-col justify-between transition-all duration-300 ease-in-out overflow-hidden`}
       >
         <div className="flex flex-col px-2 gap-2 pt-3">
-          <CommandMenu isOpen={isOpen} />
+          <div className="py-4">
+            <CommandMenu isOpen={isOpen} />
+          </div>
+
           {actions.map((item) => (
             <SidebarAction key={item.label} item={item} isOpen={isOpen} />
           ))}
@@ -90,7 +93,9 @@ const SideBar = () => {
           {isOpen && (
             <div className="flex flex-col w-full pt-4 gap-2">
               <Separator />
-              <h3 className="whitespace-nowrap">Vos dossiers</h3>
+              <h3 className="whitespace-nowrap text-sm text-gray-600">
+                Vos dossiers
+              </h3>
             </div>
           )}
         </div>
