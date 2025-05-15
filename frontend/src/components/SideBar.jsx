@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 import {
   House,
   PanelLeftClose,
@@ -14,22 +15,24 @@ const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   //liens des button
-  const links = [
+  const actions = [
     {
       to: '/',
-      icon: <House size={20} />,
+      type: 'link',
+      icon: <House />,
       label: 'Home',
       variant: 'ghost',
       className: '',
     },
     {
-      to: '/new-prompt',
+      type: 'button',
       icon: <CirclePlus size={20} />,
       label: 'Créer un prompt',
     },
     {
       icon: <FolderPlus size={20} />,
       label: 'Créer un fichier',
+      variant: 'secondary',
     },
   ];
 
@@ -59,19 +62,39 @@ const SideBar = () => {
         } flex flex-col justify-between transition-all duration-300 ease-in-out overflow-hidden`}
       >
         <div className="flex flex-col px-2 gap-2 pt-3">
-          {links.map(({ to, icon, label, variant, className }) => (
-            <Button asChild key={label} variant={variant} className={className}>
-              <Link to={to}>
-                {icon}
-                {isOpen && <span>{label}</span>}
-              </Link>
-            </Button>
-          ))}
+          {actions.map((item) => {
+            if (item.type === 'link') {
+              return (
+                <Button asChild key={item.label} variant={item.variant}>
+                  <Link to={item.to}>
+                    {item.icon}
+                    {isOpen && <span>{item.label}</span>}
+                  </Link>
+                </Button>
+              );
+            }
+            if (item.type === 'button') {
+              return (
+                <Button variant={item.variant}>
+                  {item.icon}
+                  {isOpen && <span>{item.label}</span>}
+                </Button>
+              );
+            }
+            return null;
+          })}
+
           {isOpen && (
-            <div className="pt-4">
-              <h3 className="text-gray-700 ">All Prompt</h3>
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4 }}
+              className="pt-4"
+            >
+              <h3>All prompt</h3>
               <Separator />
-            </div>
+            </motion.div>
           )}
         </div>
 
