@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import {
   Command,
@@ -13,16 +13,32 @@ import { Search } from 'lucide-react';
 export function CommandMenu({ isOpen }) {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'x') {
+        e.preventDefault();
+        setOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="flex items-center w-full gap-2 px-2"
+          className="flex  items-center w-full gap-2 px-2"
           size={isOpen ? 'default' : 'icon'}
         >
           <Search />
-          {isOpen && <span>Rechercher un prompt</span>}
+          {isOpen && (
+            <p>
+              <span className="text-gray-600 text-sm">Cherchez un prompt </span>{' '}
+              ⌘X
+            </p>
+          )}
         </Button>
       </DialogTrigger>
 
