@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { CirclePlus } from 'lucide-react';
 
 export function DialogDemo() {
   const [title, setTitle] = useState('');
@@ -24,7 +25,10 @@ export function DialogDemo() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Create a Prompt</Button>
+        <Button>
+          <CirclePlus />
+          <span>Create a Prompt</span>
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <form onSubmit={handleSubmit}>
