@@ -16,8 +16,9 @@ export function DialogDemo() {
   const [title, setTitle] = useState('');
   const [prompt, setPrompt] = useState('');
 
-  const handleSubmit = async () => {
-    console.log('faut faire le hook'); // faut vraiment faire le hook personaliser
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // évite le refresh
+    console.log({ title, prompt }); // faudra créer le hook
   };
 
   return (
