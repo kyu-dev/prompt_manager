@@ -13,59 +13,45 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export function DialogDemo() {
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
+  const [title, setTitle] = useState('');
+  const [prompt, setPrompt] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Pour ne pas recharger la page
-
-    const res = await fetch('/api/profile', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, username }),
-    });
-
-    if (res.ok) {
-      console.log('Données envoyées avec succès ✅');
-    } else {
-      console.error('Erreur lors de la mise à jour 😤');
-    }
+  const handleSubmit = async () => {
+    console.log('faut faire le hook'); // faut vraiment faire le hook personaliser
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
+        <Button variant="outline">Create a Prompt</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[600px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
+            <DialogTitle>Create a Prompt</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+              Create your prompt, and click save when your done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
-              </Label>
+              <Label className="text-right">Title</Label>
               <Input
                 id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={title}
+                placeHolder="entrez le nom de votre Prompt"
+                onChange={(e) => setTitle(e.target.value)}
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Username
-              </Label>
-              <Input
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="col-span-3"
+              <Label className="text-right">Prompt</Label>
+              <textarea
+                id="prompt"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                className="col-span-3 h-32 p-2 border rounded-md"
+                rows="4"
               />
             </div>
           </div>

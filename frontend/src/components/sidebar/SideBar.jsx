@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SidebarAction } from './SidebarLinks.jsx';
+import { SidebarLinks } from './SidebarLinks.jsx';
 import {
   House,
   PanelLeftClose,
@@ -18,7 +18,7 @@ const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   //liens des button
-  const actions = [
+  const links = [
     {
       to: '/',
       type: 'link',
@@ -39,17 +39,6 @@ const SideBar = () => {
       icon: <Star />,
       label: 'Favoris',
       variant: 'ghost',
-    },
-    {
-      type: 'button',
-      icon: <CirclePlus size={20} />,
-      label: 'Créer un prompt',
-    },
-    {
-      type: 'button',
-      icon: <FolderPlus size={20} />,
-      label: 'Créer un dossier',
-      variant: 'secondary',
     },
   ];
 
@@ -87,8 +76,8 @@ const SideBar = () => {
             <CommandMenu isOpen={isOpen} />
           </div>
 
-          {actions.map((item) => (
-            <SidebarAction key={item.label} item={item} isOpen={isOpen} />
+          {links.map((item) => (
+            <SidebarLinks key={item.label} item={item} isOpen={isOpen} />
           ))}
 
           <DialogDemo />
