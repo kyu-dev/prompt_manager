@@ -14,6 +14,7 @@ import { Separator } from '@/components/ui/separator';
 import { SearchBar } from './SearchBar.jsx';
 import { CreatPromptBtn } from './CreatPromptBtn.jsx';
 import { CreatFolderBtn } from './CreatFolderBtn.jsx';
+import { LogoutButton } from './LogoutButton';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -94,7 +95,7 @@ const SideBar = () => {
           )}
         </div>
 
-        <div className="p-4 mt-auto">
+        <div className={`p-4 mt-auto ${isOpen && 'flex justify-between'}`}>
           <Button
             onClick={toggleSidebar}
             variant="ghost"
@@ -107,6 +108,7 @@ const SideBar = () => {
               <PanelLeftOpen size={20} />
             )}
           </Button>
+          <LogoutButton isOpen={isOpen} />
         </div>
       </nav>
     </div>
