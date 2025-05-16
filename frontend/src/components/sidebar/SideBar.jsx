@@ -11,8 +11,8 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { CommandMenu } from './SearchBar.jsx';
-import { DialogDemo } from './CreatPromptBtn.jsx';
+import { SearchBar } from './SearchBar.jsx';
+import { CreatPromptBtn } from './CreatPromptBtn.jsx';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -73,14 +73,14 @@ const SideBar = () => {
       >
         <div className="flex flex-col px-2 gap-2 pt-3">
           <div className="py-4">
-            <CommandMenu isOpen={isOpen} />
+            <SearchBar isOpen={isOpen} />
           </div>
 
           {links.map((item) => (
             <SidebarLinks key={item.label} item={item} isOpen={isOpen} />
           ))}
 
-          <DialogDemo />
+          <CreatPromptBtn isOpen={isOpen} />
 
           {isOpen && (
             <div className="flex flex-col w-full pt-4 gap-2">

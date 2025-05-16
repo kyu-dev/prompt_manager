@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CirclePlus } from 'lucide-react';
 
-export function DialogDemo() {
+export function CreatPromptBtn({ isOpen }) {
   const [title, setTitle] = useState('');
   const [prompt, setPrompt] = useState('');
 
@@ -27,7 +27,7 @@ export function DialogDemo() {
       <DialogTrigger asChild>
         <Button>
           <CirclePlus />
-          <span>Create a Prompt</span>
+          {isOpen && <span>Create a Prompt</span>}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">

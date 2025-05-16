@@ -10,7 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 
-export function CommandMenu({ isOpen }) {
+export function SearchBar({ isOpen }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
