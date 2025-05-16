@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { SearchBar } from './SearchBar.jsx';
 import { CreatPromptBtn } from './CreatPromptBtn.jsx';
+import { CreatFolderBtn } from './CreatFolderBtn.jsx';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -81,6 +82,7 @@ const SideBar = () => {
           ))}
 
           <CreatPromptBtn isOpen={isOpen} />
+          <CreatFolderBtn isOpen={isOpen} />
 
           {isOpen && (
             <div className="flex flex-col w-full pt-4 gap-2">
