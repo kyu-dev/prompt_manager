@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SidebarAction } from './SidebarAction';
+import { SidebarAction } from './SidebarLinks.jsx';
 import {
   House,
   PanelLeftClose,
@@ -11,7 +11,8 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { CommandMenu } from './CommandMenu';
+import { CommandMenu } from './SearchBar.jsx';
+import { DialogDemo } from './CreatPromptBtn.jsx';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -89,6 +90,8 @@ const SideBar = () => {
           {actions.map((item) => (
             <SidebarAction key={item.label} item={item} isOpen={isOpen} />
           ))}
+
+          <DialogDemo />
 
           {isOpen && (
             <div className="flex flex-col w-full pt-4 gap-2">
