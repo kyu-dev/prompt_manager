@@ -36,7 +36,7 @@ export function SearchBar({ isOpen }) {
           {isOpen && (
             <p>
               <span className="text-gray-600 text-sm">Cherchez un prompt </span>{' '}
-              ⌘X
+              ⌘x
             </p>
           )}
         </Button>
