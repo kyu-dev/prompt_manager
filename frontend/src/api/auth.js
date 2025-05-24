@@ -6,15 +6,16 @@ export async function loginUser({ username, password }) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ username, password }),
+      credentials: 'include',
     });
 
     const json = await res.json();
 
     if (res.ok) {
-      console.log(json.message); //message de succès
+      console.log(json.message); // message de succès
       localStorage.setItem('user', JSON.stringify(json.user));
     } else {
-      console.error(json.message); // message d'érreur
+      console.error(json.message); // message d'erreur
     }
   } catch (error) {
     console.error(error);
@@ -30,9 +31,9 @@ export async function logoutUser() {
 
     if (res.ok) {
       console.log(json.message); // message de succès
-      localStorage.removeItem('user'); //  dégage l’utilisateur stocké
+      localStorage.removeItem('user'); //  dégage l'utilisateur stocké
     } else {
-      console.error(json.message); // message d’erreur
+      console.error(json.message); // message d'erreur
     }
   } catch (err) {
     console.error(err);
