@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function LoginForm({ className, ...props }) {
   const navigate = useNavigate();
-  const [usurname, setUsername] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
@@ -23,7 +23,6 @@ export function LoginForm({ className, ...props }) {
     e.preventDefault();
     setMessage('');
     try {
-      const username = usurname;
       await loginUser({ username, password });
       setMessage('Connexion réussie !');
       navigate('/');
@@ -71,12 +70,12 @@ export function LoginForm({ className, ...props }) {
               </div>
               <div className="grid gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="usurname">Username</Label>
+                  <Label htmlFor="username">Username</Label>
                   <Input
                     id="username"
                     autoComplete="username"
                     required
-                    value={usurname}
+                    value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
