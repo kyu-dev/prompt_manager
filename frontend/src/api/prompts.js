@@ -35,3 +35,22 @@ export async function creatPrompt(title, content, folder_id) {
     console.error('erreur lors de la creation du prompt', err);
   }
 }
+
+export async function deletePrompt(id) {
+  try {
+    const res = await fetch('http://localhost:3000/prompt/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+    const json = res.json();
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}
