@@ -1,10 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
+import { logoutUser } from '../../api/auth';
+import { useNavigate } from 'react-router-dom';
 
 export function LogoutButton({ isOpen }) {
-  const handleLogout = () => {
-    // c'est ici le hook de déconexion =)
-    console.log('Déconnexion en cours...');
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logoutUser();
+    navigate('/login');
   };
 
   return (

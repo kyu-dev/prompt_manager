@@ -17,9 +17,24 @@ export async function loginUser({ username, password }) {
       console.error(json.message); // message d'érreur
     }
   } catch (error) {
-    console.error('Erreur lors de la connexion:', error);
+    console.error(error);
   }
 }
+export async function logoutUser() {
+  try {
+    const res = await fetch('http://localhost:3000/auth/logout', {
+      method: 'GET',
+    });
 
-// Exemple d'appel de la fonction
-loginUser({ username: 'nouvel_utilisateur', password: 'motdepasse' });
+    const json = await res.json();
+
+    if (res.ok) {
+      console.log(json.message); // message de succès
+      localStorage.removeItem('user'); //  dégage l’utilisateur stocké
+    } else {
+      console.error(json.message); // message d’erreur
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
