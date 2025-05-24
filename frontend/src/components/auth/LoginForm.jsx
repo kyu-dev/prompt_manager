@@ -74,7 +74,7 @@ export function LoginForm({ className, ...props }) {
                   <Label htmlFor="usurname">Username</Label>
                   <Input
                     id="username"
-                    placeholder="toto"
+                    autoComplete="username"
                     required
                     value={usurname}
                     onChange={(e) => setUsername(e.target.value)}
@@ -94,6 +94,7 @@ export function LoginForm({ className, ...props }) {
                     id="password"
                     type="password"
                     required
+                    autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
