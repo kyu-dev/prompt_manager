@@ -11,8 +11,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { loginUser } from '../../api/auth.js';
+import { useNavigate } from 'react-router-dom';
 
 export function LoginForm({ className, ...props }) {
+  const navigate = useNavigate();
   const [usurname, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -24,6 +26,7 @@ export function LoginForm({ className, ...props }) {
       const username = usurname;
       await loginUser({ username, password });
       setMessage('Connexion réussie !');
+      navigate('/');
     } catch {
       setMessage('Erreur lors de la connexion');
     }
