@@ -12,6 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CirclePlus } from 'lucide-react';
+import { creatPrompt } from '../../api/prompts';
 
 export function CreatPromptBtn({ isOpen }) {
   const [title, setTitle] = useState('');
@@ -19,7 +20,7 @@ export function CreatPromptBtn({ isOpen }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // évite le refresh
-    console.log({ title, prompt }); // faudra créer le hook
+    creatPrompt(title, prompt);
   };
 
   return (
@@ -44,7 +45,7 @@ export function CreatPromptBtn({ isOpen }) {
               <Input
                 id="name"
                 value={title}
-                placeHolder="entrez le nom de votre Prompt"
+                placeholder="entrez le nom de votre Prompt"
                 onChange={(e) => setTitle(e.target.value)}
                 className="col-span-3"
               />

@@ -29,9 +29,13 @@ const Home = () => {
       </h2>
       <div className="flex gap-6 overflow-x-auto py-2">
         {prompts.map((prompt, index) => (
-          <Card key={index} className="w-[300px] h-[100px] p-2 flex-shrink-0">
+          <Card key={index} className="w-[300px]  p-2 flex-shrink-0">
             <h3 className="text-xl">{prompt.title}</h3>
-            <p>{prompt.content}</p>
+            <div>
+              <p>{prompt.content}</p>
+              <p>{prompt.id}</p>
+            </div>
+
             <button>
               <ClipboardCheckIcon className="hover:cursor-pointer" />
             </button>
