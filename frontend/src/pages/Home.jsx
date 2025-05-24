@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
-import { ClipboardCheckIcon } from 'lucide-react';
+import { DeleteIcon } from 'lucide-react';
 import { Clock } from 'lucide-react';
-import { Star } from 'lucide-react';
-import { getPrompt } from '../api/prompts';
+import { deletePrompt, getPrompt } from '../api/prompts';
 
 const Home = () => {
   const [prompts, setPrompts] = useState([]);
+
+  async function handleDelete(promptId) {
+    try {
+      await deletePrompt(promptId);
+      setPrompts((prev) => prev.filter((p) => p.id !== promptId));
+    } catch (err) {
+      console.error('Erreur lors de la suppression du prompt:', err);
+    }
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -36,8 +44,8 @@ const Home = () => {
               <p>{prompt.id}</p>
             </div>
 
-            <button>
-              <ClipboardCheckIcon className="hover:cursor-pointer" />
+            <button onClick={() => handleDelete(prompt.id)}>
+              <DeleteIcon className="hover:cursor-pointer" />
             </button>
           </Card>
         ))}

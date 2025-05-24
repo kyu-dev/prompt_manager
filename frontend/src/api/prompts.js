@@ -29,7 +29,7 @@ export async function creatPrompt(title, content, folder_id) {
         folder_id: folder_id,
       }),
     });
-    const json = res.json();
+    const json = await res.json();
     return json;
   } catch (err) {
     console.error('erreur lors de la creation du prompt', err);
@@ -48,9 +48,9 @@ export async function deletePrompt(id) {
         id: id,
       }),
     });
-    const json = res.json();
+    const json = await res.json();
     return json;
   } catch (err) {
-    console.error(err);
+    console.error('Erreur lors de la suppression du prompt:', err);
   }
 }
