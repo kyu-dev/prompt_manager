@@ -54,3 +54,25 @@ export async function apiDeletePrompt(id) {
     console.error('Erreur lors de la suppression du prompt:', err);
   }
 }
+
+export async function apiEditPrompt(id, folder_id, content, title) {
+  try {
+    const res = await fetch('http://localhost:3000/prompt/edit', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        id: id,
+        folder_id: folder_id,
+        content: content,
+        title: title,
+      }),
+    });
+    const json = await res.json();
+    return json;
+  } catch (err) {
+    console.error("Erreur lors de l'édition du prompt", err);
+  }
+}

@@ -33,7 +33,7 @@ export const usePrompt = () => {
     setLoading(true);
     try {
       await apiCreatePrompt(title, content);
-      fetchPrompts(false); // mise à jour après ajout
+      fetchPrompts(false); // mise à jour après ajout sans le loading du refetch
     } catch (error) {
       console.error('Erreur lors de la création du prompt:', error);
     } finally {
