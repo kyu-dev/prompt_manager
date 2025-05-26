@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { apiDeletePrompt, apiGetPrompt } from '../api/prompts';
+import { apiDeletePrompt, apiGetPrompt, apiCreatePrompt } from '../api/prompts';
 export const usePrompt = () => {
   const [prompts, setPrompts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -29,6 +29,18 @@ export const usePrompt = () => {
     }
   };
 
+  const handleCreatePrompt = async (title, content) => {
+    setLoading(true);
+    try {
+      await apiCreatePrompt(title, content);
+      fetchPrompts(false); // mise à jour après ajout
+    } catch (error) {
+      console.error('Erreur lors de la création du prompt:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchPrompts();
   }, []);
@@ -38,5 +50,6 @@ export const usePrompt = () => {
     loading,
     fetchPrompts,
     handleDeletePrompt,
+    handleCreatePrompt,
   };
 };

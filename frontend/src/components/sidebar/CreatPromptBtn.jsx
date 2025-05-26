@@ -12,15 +12,17 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CirclePlus } from 'lucide-react';
-import { apiCreatePrompt } from '../../api/prompts';
+import { usePrompt } from '@/hooks/usePrompt';
 
 export function CreatPromptBtn({ isOpen }) {
   const [title, setTitle] = useState('');
   const [prompt, setPrompt] = useState('');
+  const { handleCreatePrompt } = usePrompt();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // évite le refresh
-    apiCreatePrompt(title, prompt);
+  const handleSubmit = async () => {
+    await handleCreatePrompt(title, prompt); // utilisation du hook
+    setTitle('');
+    setPrompt('');
   };
 
   return (
@@ -36,16 +38,15 @@ export function CreatPromptBtn({ isOpen }) {
           <DialogHeader>
             <DialogTitle>Create a Prompt</DialogTitle>
             <DialogDescription>
-              Create your prompt, and click save when your done.
+              Create your prompt, and click save when you're done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label className="text-right">Title</Label>
               <Input
-                id="name"
                 value={title}
-                placeholder="entrez le nom de votre Prompt"
+                placeholder="Entrez le nom de votre prompt"
                 onChange={(e) => setTitle(e.target.value)}
                 className="col-span-3"
               />
@@ -53,11 +54,9 @@ export function CreatPromptBtn({ isOpen }) {
             <div className="grid grid-cols-4 items-center gap-4">
               <Label className="text-right">Prompt</Label>
               <textarea
-                id="prompt"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 className="col-span-3 h-32 p-2 border rounded-md"
-                rows="4"
               />
             </div>
           </div>
