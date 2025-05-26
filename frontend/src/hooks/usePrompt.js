@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
-import { apiDeletePrompt, apiGetPrompt, apiCreatePrompt } from '../api/prompts';
+import {
+  apiDeletePrompt,
+  apiGetPrompt,
+  apiCreatePrompt,
+  apiEditPrompt,
+} from '../api/prompts';
 export const usePrompt = () => {
   const [prompts, setPrompts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -41,6 +46,17 @@ export const usePrompt = () => {
     }
   };
 
+  const handleEditPrompt = async (id, title, content) => {
+    setLoading(true);
+    try {
+      await apiEditPrompt(id, title, content);
+    } catch (error) {
+      console.error("Erreur lors de l'édition du prompt", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchPrompts();
   }, []);
@@ -51,5 +67,6 @@ export const usePrompt = () => {
     fetchPrompts,
     handleDeletePrompt,
     handleCreatePrompt,
+    handleEditPrompt,
   };
 };
