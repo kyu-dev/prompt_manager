@@ -1,4 +1,4 @@
-export async function getPrompt() {
+export async function apiGetPrompt() {
   try {
     const res = await fetch('http://localhost:3000/prompt/get', {
       method: 'GET',
@@ -15,7 +15,7 @@ export async function getPrompt() {
   }
 }
 
-export async function creatPrompt(title, content, folder_id) {
+export async function apiCreatePrompt(title, content, folder_id) {
   try {
     const res = await fetch('http://localhost:3000/prompt/create', {
       method: 'POST',
@@ -36,7 +36,7 @@ export async function creatPrompt(title, content, folder_id) {
   }
 }
 
-export async function deletePrompt(id) {
+export async function apiDeletePrompt(id) {
   try {
     const res = await fetch('http://localhost:3000/prompt/delete', {
       method: 'DELETE',

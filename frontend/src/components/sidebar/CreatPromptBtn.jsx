@@ -12,7 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CirclePlus } from 'lucide-react';
-import { creatPrompt } from '../../api/prompts';
+import { apiCreatePrompt } from '../../api/prompts';
 
 export function CreatPromptBtn({ isOpen }) {
   const [title, setTitle] = useState('');
@@ -20,7 +20,7 @@ export function CreatPromptBtn({ isOpen }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // évite le refresh
-    creatPrompt(title, prompt);
+    apiCreatePrompt(title, prompt);
   };
 
   return (
