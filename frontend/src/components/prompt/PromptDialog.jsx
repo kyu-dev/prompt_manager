@@ -25,8 +25,7 @@ export function PromptDialog({
     setPrompt(initialContent);
   }, [initialTitle, initialContent]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     await onSubmit(title, prompt);
     setTitle('');
     setPrompt('');
