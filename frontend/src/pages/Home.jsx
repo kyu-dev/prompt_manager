@@ -1,6 +1,7 @@
 import { usePrompt } from '@/hooks/usePrompt';
 import { Card } from '@/components/ui/card';
 import { DeleteIcon, Clock } from 'lucide-react';
+import { EditPromptBtn } from '../components/prompt/EditPromptBtn';
 
 const Home = () => {
   const { prompts, loading, handleDeletePrompt } = usePrompt();
@@ -36,10 +37,15 @@ const Home = () => {
                   <DeleteIcon className="w-4 h-4" />
                   Supprimer
                 </button>
+                <EditPromptBtn
+                  id={prompt.id}
+                  title={prompt.title}
+                  content={prompt.content}
+                />
               </Card>
             ))
           ) : (
-            <p>Aucun prompt pour l’instant 🫠</p>
+            <p>Aucun prompt pour l'instant 🫠</p>
           )}
         </div>
       )}

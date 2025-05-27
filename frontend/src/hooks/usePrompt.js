@@ -49,7 +49,7 @@ export const usePrompt = () => {
   const handleEditPrompt = async (id, title, content) => {
     setLoading(true);
     try {
-      await apiEditPrompt(id, title, content);
+      await apiEditPrompt(id, null, content, title);
     } catch (error) {
       console.error("Erreur lors de l'édition du prompt", error);
     } finally {

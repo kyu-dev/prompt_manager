@@ -1,24 +1,25 @@
-// components/CreatePromptBtn.jsx
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { CirclePlus } from 'lucide-react';
 import { usePrompt } from '@/hooks/usePrompt';
 import { PromptDialog } from '../prompt/PromptDialog';
 
-export function CreatPromptBtn({ isOpen }) {
-  const { handleCreatePrompt } = usePrompt();
+export function EditPromptBtn({ id, title, content }) {
+  const { handleEditPrompt } = usePrompt();
 
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button>
-          <CirclePlus />
-          {isOpen && <span>Create a Prompt</span>}
+          <span>Edit Prompt</span>
         </Button>
       </DialogTrigger>
       <PromptDialog
-        mode="create"
-        onSubmit={(title, prompt) => handleCreatePrompt(title, prompt)}
+        mode="edit"
+        initialTitle={title}
+        initialContent={content}
+        onSubmit={(newTitle, newContent) =>
+          handleEditPrompt(id, newTitle, newContent)
+        }
       />
     </Dialog>
   );
