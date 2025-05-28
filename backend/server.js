@@ -23,7 +23,7 @@ app.use(
     secret: 'mdp2ouf',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, maxAge: 10 * 1000 },
+    cookie: { secure: false },
   })
 );
 
