@@ -35,7 +35,7 @@ export const register = async (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, 10);
 
   try {
-    const result = await client.query(
+    const res = await client.query(
       'INSERT INTO users (username, password, email) VALUES ($1, $2, $3) RETURNING *',
       [username, hashedPassword, email]
     );
@@ -43,5 +43,13 @@ export const register = async (req, res) => {
   } catch (error) {
     console.error("Erreur lors de la création de l'utilisateur:", error);
     res.status(500).send("Erreur lors de la création de l'utilisateur.");
+  }
+};
+
+export const checkSession = async (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ user: req.user });
+  } else {
+    res.status(401).json({ error: 'Session expired' });
   }
 };

@@ -30,12 +30,27 @@ export async function logoutUser() {
     const json = await res.json();
 
     if (res.ok) {
-      console.log(json.message); // message de succès
-      localStorage.removeItem('user'); //  dégage l'utilisateur stocké
+      console.log(json.message);
+      localStorage.removeItem('user');
     } else {
-      console.error(json.message); // message d'erreur
+      console.error(json.message);
     }
   } catch (err) {
     console.error(err);
+  }
+}
+
+export async function checkSession() {
+  try {
+    const res = await fetch('http://localhost:3000/auth/checkSession', {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    const json = await res.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+    return { error: 'Erreur lors de la vérification de la session' };
   }
 }

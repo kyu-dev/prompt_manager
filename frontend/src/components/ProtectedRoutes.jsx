@@ -1,12 +1,35 @@
 import { Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { checkSession } from '../api/auth';
 
 export default function ProtectedRoute({ children }) {
-  const user = localStorage.getItem('user');
-  console.log(localStorage.getItem('user'));
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
 
-  if (!user || user === undefined || user === null) {
-    // on S'assure que il n'y a rien dans le localstorage car au lancement localstorage est sur undefine ce qui est condirer user = true
+  useEffect(() => {
+    const verifySession = async () => {
+      try {
+        const response = await checkSession();
+        if (response.user) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch (error) {
+        setIsAuthenticated(false);
+        console.error(error);
+      }
+    };
+
+    verifySession();
+  }, []);
+
+  if (isAuthenticated === null) {
+    return null; // ou un loader
+  }
+
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
+
   return children;
 }

@@ -4,6 +4,7 @@ import {
   logoutUser,
   profile,
   register,
+  checkSession,
 } from '../controller/authController.js';
 import passport from 'passport';
 
@@ -16,5 +17,7 @@ router.get('/logout', logoutUser);
 router.get('/profile', profile);
 
 router.post('/register', register);
+
+router.get('/checkSession', checkSession);
 
 export default router;
