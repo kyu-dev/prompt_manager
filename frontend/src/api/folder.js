@@ -1,4 +1,4 @@
-export async function getFolder() {
+export async function apiGetFolder() {
   try {
     const res = await fetch('http://localhost:3000/folder/get', {
       method: 'GET',
@@ -15,7 +15,7 @@ export async function getFolder() {
   }
 }
 
-export async function createFolder(title) {
+export async function apiCreateFolder(title) {
   try {
     const res = await fetch('http://localhost:3000/folder/create', {
       method: 'POST',
@@ -53,7 +53,7 @@ export async function apiDeleteFolder(id) {
   }
 }
 
-export async function apiEditPrompt(id, title) {
+export async function apiEditFolder(id, title) {
   try {
     const res = await fetch('http://localhost:3000/folder/edit', {
       method: 'PUT',
