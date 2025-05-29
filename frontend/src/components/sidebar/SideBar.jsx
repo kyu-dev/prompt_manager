@@ -15,6 +15,7 @@ import { SearchBar } from './SearchBar.jsx';
 import { CreatPromptBtn } from './CreatPromptBtn.jsx';
 import { CreatFolderBtn } from './CreatFolderBtn.jsx';
 import { LogoutButton } from './LogoutButton';
+import FolderList from './FolderList.jsx';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -91,6 +92,7 @@ const SideBar = () => {
               <h3 className="whitespace-nowrap text-sm text-gray-600">
                 Vos dossiers
               </h3>
+              <FolderList />
             </div>
           )}
         </div>
