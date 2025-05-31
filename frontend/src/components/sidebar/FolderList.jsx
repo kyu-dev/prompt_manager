@@ -6,9 +6,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { usePrompt } from '../../hooks/usePrompt';
 
 const FolderList = () => {
   const { folder, loading } = useFolder();
+  const { prompts } = usePrompt();
   return (
     <div>
       {loading ? (
@@ -21,7 +23,11 @@ const FolderList = () => {
                 <AccordionItem value="item-1">
                   <AccordionTrigger>{item.title}</AccordionTrigger>
                   <AccordionContent>
-                    Yes. It adheres to the WAI-ARIA design pattern.
+                    {prompts.map((prompt, i) => (
+                      <div key={i}>
+                        <p>{prompt.title}</p>
+                      </div>
+                    ))}
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
