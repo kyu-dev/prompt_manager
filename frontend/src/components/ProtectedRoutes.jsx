@@ -23,7 +23,7 @@ export default function ProtectedRoute({ children }) {
   }, []);
 
   if (isAuthenticated === null) {
-    return null; // ou un loader
+    return null;
   }
 
   if (!isAuthenticated) {
