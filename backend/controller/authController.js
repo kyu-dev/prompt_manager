@@ -5,7 +5,7 @@ export const loginUser = (req, res) => {
   if (req.isAuthenticated()) {
     res.json({
       message: 'Connexion réussie !',
-      user: req.user, // ← là tu renvoies bien l'utilisateur au frontend
+      user: req.user,
     });
   } else {
     res.status(401).json({ message: 'Non autorisé' });
@@ -13,13 +13,30 @@ export const loginUser = (req, res) => {
 };
 //teste
 
-export const logoutUser = (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      return res.json({ message: 'Erreur lors de la déconnexion.' });
-    }
-    res.json({ message: 'Déconnexion réussie.' });
-  });
+export const logoutUser = async (req, res) => {
+  try {
+    await new Promise((resolve, reject) => {
+      req.logout((err) => {
+        if (err) return reject(err);
+        resolve();
+      });
+    });
+
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Erreur session.destroy :', err);
+        return res
+          .status(500)
+          .json({ message: 'Erreur serveur pendant la déconnexion' });
+      }
+
+      res.clearCookie('connect.sid');
+      res.status(200).json({ message: 'Déconnecté' });
+    });
+  } catch (error) {
+    console.error('Erreur dans logoutUser :', error);
+    res.status(500).json({ message: 'Erreur serveur pendant le logout' });
+  }
 };
 
 export const profile = (req, res) => {

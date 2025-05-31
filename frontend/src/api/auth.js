@@ -24,7 +24,8 @@ export async function loginUser({ username, password }) {
 export async function logoutUser() {
   try {
     const res = await fetch('http://localhost:3000/auth/logout', {
-      method: 'GET',
+      method: 'DELETE',
+      credentials: 'include',
     });
 
     const json = await res.json();
@@ -32,11 +33,14 @@ export async function logoutUser() {
     if (res.ok) {
       console.log(json.message);
       localStorage.removeItem('user');
+      return true;
     } else {
       console.error(json.message);
+      return false;
     }
   } catch (err) {
-    console.error(err);
+    console.error('Erreur lors de la déconnexion :', err);
+    return false;
   }
 }
 
@@ -47,10 +51,14 @@ export async function checkSession() {
       credentials: 'include',
     });
 
+    if (!res.ok) {
+      throw new Error(`Erreur HTTP: ${res.status}`);
+    }
+
     const json = await res.json();
     return json;
   } catch (error) {
-    console.error(error);
+    console.error('checkSession error:', error);
     return { error: 'Erreur lors de la vérification de la session' };
   }
 }

@@ -7,16 +7,15 @@ export default function ProtectedRoute({ children }) {
 
   useEffect(() => {
     const verifySession = async () => {
-      try {
-        const response = await checkSession();
-        if (response.user) {
-          setIsAuthenticated(true);
-        } else {
-          setIsAuthenticated(false);
-        }
-      } catch (error) {
+      const result = await checkSession();
+
+      if (result?.user) {
+        setIsAuthenticated(true);
+      } else {
         setIsAuthenticated(false);
-        console.error(error);
+        if (result?.error) {
+          console.error(result.error);
+        }
       }
     };
 

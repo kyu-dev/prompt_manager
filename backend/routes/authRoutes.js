@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post('/login', passport.authenticate('local'), loginUser);
 
-router.get('/logout', logoutUser);
+router.delete('/logout', logoutUser);
 
 router.get('/profile', profile);
 
