@@ -5,6 +5,7 @@ import {
   apiCreatePrompt,
   apiEditPrompt,
 } from '../api/prompts';
+
 export const usePrompt = () => {
   const [prompts, setPrompts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -34,11 +35,11 @@ export const usePrompt = () => {
     }
   };
 
-  const handleCreatePrompt = async (title, content) => {
+  const handleCreatePrompt = async (title, content, folder_id) => {
     setLoading(true);
     try {
-      await apiCreatePrompt(title, content);
-      fetchPrompts(false); // mise à jour après ajout sans le loading du refetch
+      await apiCreatePrompt(title, content, folder_id);
+      await fetchPrompts(false); // Recharge les prompts après la création
     } catch (error) {
       console.error('Erreur lors de la création du prompt:', error);
     } finally {
@@ -46,10 +47,11 @@ export const usePrompt = () => {
     }
   };
 
-  const handleEditPrompt = async (id, title, content) => {
+  const handleEditPrompt = async (id, title, content, folder_id) => {
     setLoading(true);
     try {
-      await apiEditPrompt(id, null, content, title);
+      await apiEditPrompt(id, folder_id, content, title);
+      fetchPrompts(false);
     } catch (error) {
       console.error("Erreur lors de l'édition du prompt", error);
     } finally {

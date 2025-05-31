@@ -10,25 +10,40 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useFolder } from '@/hooks/useFolder';
 
 export function PromptDialog({
   initialTitle = '',
   initialContent = '',
+  initialFolderId = '',
   onSubmit,
   mode = 'create', // 'edit' ou 'create'
+  onClose,
 }) {
   const [title, setTitle] = useState(initialTitle);
   const [prompt, setPrompt] = useState(initialContent);
+  const [folderId, setFolderId] = useState(initialFolderId);
+  const { folder } = useFolder();
 
   useEffect(() => {
     setTitle(initialTitle);
     setPrompt(initialContent);
-  }, [initialTitle, initialContent]);
+    setFolderId(initialFolderId);
+  }, [initialTitle, initialContent, initialFolderId]);
 
   const handleSubmit = async () => {
-    await onSubmit(title, prompt);
+    await onSubmit(title, prompt, folderId);
     setTitle('');
     setPrompt('');
+    setFolderId('');
+    onClose();
   };
 
   return (
@@ -61,6 +76,21 @@ export function PromptDialog({
               onChange={(e) => setPrompt(e.target.value)}
               className="col-span-3 h-32 p-2 border rounded-md"
             />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label className="text-right">Dossier</Label>
+            <Select value={folderId} onValueChange={setFolderId}>
+              <SelectTrigger className="col-span-3">
+                <SelectValue placeholder="Sélectionner un dossier" />
+              </SelectTrigger>
+              <SelectContent>
+                {folder.map((f) => (
+                  <SelectItem key={f.id} value={f.id}>
+                    {f.title}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <DialogFooter>

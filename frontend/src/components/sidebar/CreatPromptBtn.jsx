@@ -1,4 +1,5 @@
 // components/CreatePromptBtn.jsx
+import { useState } from 'react';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { CirclePlus } from 'lucide-react';
@@ -7,9 +8,10 @@ import { PromptDialog } from '../prompt/PromptDialog';
 
 export function CreatPromptBtn({ isOpen }) {
   const { handleCreatePrompt } = usePrompt();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
         <Button>
           <CirclePlus />
@@ -18,7 +20,10 @@ export function CreatPromptBtn({ isOpen }) {
       </DialogTrigger>
       <PromptDialog
         mode="create"
-        onSubmit={(title, prompt) => handleCreatePrompt(title, prompt)}
+        onSubmit={(title, prompt, folder_id) => {
+          handleCreatePrompt(title, prompt, folder_id);
+        }}
+        onClose={() => setIsDialogOpen(false)}
       />
     </Dialog>
   );
