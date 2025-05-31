@@ -11,10 +11,11 @@ import { usePrompt } from '../../hooks/usePrompt';
 const FolderList = () => {
   const { folder, loading } = useFolder();
   const { prompts } = usePrompt();
+
   return (
     <div>
       {loading ? (
-        <p>charchement en cours</p>
+        <p>Chargement en cours...</p>
       ) : (
         <ul>
           {folder.map((item, index) => (
@@ -23,11 +24,13 @@ const FolderList = () => {
                 <AccordionItem value="item-1">
                   <AccordionTrigger>{item.title}</AccordionTrigger>
                   <AccordionContent>
-                    {prompts.map((prompt, i) => (
-                      <div key={i}>
-                        <p>{prompt.title}</p>
-                      </div>
-                    ))}
+                    {prompts
+                      .filter((prompt) => prompt.folder_id === item.id)
+                      .map((prompt, i) => (
+                        <div key={i}>
+                          <p>{prompt.title}</p>
+                        </div>
+                      ))}
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
