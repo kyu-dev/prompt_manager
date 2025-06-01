@@ -12,13 +12,15 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { FolderPlus } from 'lucide-react';
+import { useFolder } from '../../hooks/useFolder';
 
 export function CreatFolderBtn({ isOpen }) {
   const [title, setTitle] = useState('');
+  const { handleCreateFolder } = useFolder();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // évite le refresh
-    console.log({ title }); // faudra créer le hook
+  const handleSubmit = async () => {
+    await handleCreateFolder(title);
+    setTitle(''); // Réinitialise le champ de titre
   };
 
   return (
@@ -34,7 +36,7 @@ export function CreatFolderBtn({ isOpen }) {
           <DialogHeader>
             <DialogTitle>Create a Folder</DialogTitle>
             <DialogDescription>
-              Create your Folder, and click save when your done.
+              Create your Folder, and click save when you're done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
@@ -43,7 +45,7 @@ export function CreatFolderBtn({ isOpen }) {
               <Input
                 id="name"
                 value={title}
-                placeHolder="entrez le nom de votre Folder"
+                placeholder="Entrez le nom de votre dossier"
                 onChange={(e) => setTitle(e.target.value)}
                 className="col-span-3"
               />

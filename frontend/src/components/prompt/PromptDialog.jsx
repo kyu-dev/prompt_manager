@@ -9,14 +9,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { useState, useEffect } from 'react';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { useState } from 'react';
 import { useFolder } from '@/hooks/useFolder';
 
 export function PromptDialog({
@@ -32,17 +25,8 @@ export function PromptDialog({
   const [folderId, setFolderId] = useState(initialFolderId);
   const { folder } = useFolder();
 
-  useEffect(() => {
-    setTitle(initialTitle);
-    setPrompt(initialContent);
-    setFolderId(initialFolderId);
-  }, [initialTitle, initialContent, initialFolderId]);
-
   const handleSubmit = async () => {
     await onSubmit(title, prompt, folderId);
-    setTitle('');
-    setPrompt('');
-    setFolderId('');
     onClose();
   };
 
@@ -79,18 +63,18 @@ export function PromptDialog({
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right">Dossier</Label>
-            <Select value={folderId} onValueChange={setFolderId}>
-              <SelectTrigger className="col-span-3">
-                <SelectValue placeholder="Sélectionner un dossier" />
-              </SelectTrigger>
-              <SelectContent>
-                {folder.map((f) => (
-                  <SelectItem key={f.id} value={f.id}>
-                    {f.title}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <select
+              value={folderId}
+              onChange={(e) => setFolderId(e.target.value)}
+              className="col-span-3 p-2 border rounded-md"
+            >
+              <option value="">Sélectionner un dossier</option>
+              {folder.map((f) => (
+                <option key={f.id} value={f.id}>
+                  {f.title}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <DialogFooter>

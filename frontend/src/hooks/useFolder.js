@@ -47,10 +47,10 @@ export const useFolder = () => {
     }
   };
 
-  const handleEditFolder = async (id, title, content) => {
+  const handleEditFolder = async (id, title) => {
     setLoading(true);
     try {
-      await apiEditFolder(id, null, content, title);
+      await apiEditFolder(id, title);
     } catch (error) {
       console.error("Erreur lors de l'édition du folder", error);
     } finally {
