@@ -4,10 +4,10 @@ export const createPrompt = async (req, res) => {
   try {
     const { content, title, folder_id } = req.body;
     const user_id = req.user.id;
-
+    const safeFolderId = folder_id === '' ? null : Number(category_id); // permet d'insérer les prompt même quand ils n'ont pas folder
     const result = await client.query(
       'INSERT INTO prompts (user_id, content, title, folder_id) VALUES($1, $2, $3, $4) RETURNING *',
-      [user_id, content, title, folder_id]
+      [user_id, content, title, safeFolderId]
     );
 
     const newPrompt = result.rows[0];
@@ -41,10 +41,11 @@ export const getPrompt = async (req, res) => {
 export const editPrompt = async (req, res) => {
   const user_id = req.user.id;
   const { title, content, folder_id, id } = req.body;
+  const safeFolderId = folder_id === '' ? null : Number(folder_id);
   try {
     const result = await client.query(
       'UPDATE prompts SET title = $1, content = $2, folder_id = $3 WHERE id = $4 AND user_id = $5 RETURNING *;',
-      [title, content, folder_id, id, user_id]
+      [title, content, safeFolderId, id, user_id]
     );
 
     if (result.rows.length === 0) {
