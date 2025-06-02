@@ -7,7 +7,7 @@ const PromptCard = ({ prompt, onDelete, onEdit }) => {
   return (
     <Card className="w-[300px] gap-4 px-4 flex ">
       <h3 className="text-xl font-semibold">{prompt.title}</h3>
-      <p className="text-sm text-muted-foreground">{prompt.content}</p>
+      <p className="text-sm text-muted-foreground truncate">{prompt.content}</p>
 
       <div className="flex justify-end gap-2">
         <EditPromptBtn
