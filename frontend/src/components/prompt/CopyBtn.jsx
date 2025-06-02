@@ -3,11 +3,15 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { Copy } from 'lucide-react';
 
-const CopyBtn = ({ content }) => {
+const CopyBtn = ({ content, title }) => {
   const handleCopy = async () => {
     await navigator.clipboard.writeText(content);
     toast('Copié', {
-      description: 'Prompt enregistré dans votre press papier',
+      description: (
+        <span>
+          Prompt <strong>{title}</strong> enregistré dans votre presse-papiers
+        </span>
+      ),
       action: {
         label: 'Undo',
       },

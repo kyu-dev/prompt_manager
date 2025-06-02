@@ -11,7 +11,7 @@ const PromptCard = ({ prompt, onDelete, onEdit }) => {
       <p className="text-sm text-muted-foreground truncate">{prompt.content}</p>
 
       <div className="flex justify-end gap-2">
-        <CopyBtn content={prompt.content} />
+        <CopyBtn content={prompt.content} title={prompt.title} />
         <EditPromptBtn
           id={prompt.id}
           title={prompt.title}
