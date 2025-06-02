@@ -3,6 +3,7 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { PromptDialog } from './PromptDialog';
 import { usePrompt } from '@/hooks/usePrompt';
+import { Pen } from 'lucide-react';
 
 export const EditPromptBtn = ({ id, title, content, folder_id }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -11,7 +12,9 @@ export const EditPromptBtn = ({ id, title, content, folder_id }) => {
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Modifier</Button>
+        <Button>
+          <Pen /> Modifier
+        </Button>
       </DialogTrigger>
       <PromptDialog
         mode="edit"
