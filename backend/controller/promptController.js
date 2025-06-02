@@ -4,7 +4,7 @@ export const createPrompt = async (req, res) => {
   try {
     const { content, title, folder_id } = req.body;
     const user_id = req.user.id;
-    const safeFolderId = folder_id === '' ? null : Number(category_id); // permet d'insérer les prompt même quand ils n'ont pas folder
+    const safeFolderId = folder_id === '' ? null : Number(folder_id); // permet d'insérer les prompt même quand ils n'ont pas folder
     const result = await client.query(
       'INSERT INTO prompts (user_id, content, title, folder_id) VALUES($1, $2, $3, $4) RETURNING *',
       [user_id, content, title, safeFolderId]
