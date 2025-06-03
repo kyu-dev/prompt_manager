@@ -46,9 +46,7 @@ export function SearchBar({ isOpen }) {
         <Command className="rounded-lg border shadow-md">
           <CommandInput placeholder="Tape un nom de prompt..." />
           <CommandList>
-            <CommandEmpty>
-              Génère une idée de startup en 10 secondes
-            </CommandEmpty>
+            <CommandEmpty>rien trouver</CommandEmpty>
             <CommandItem>Décris un monde où les humains volent</CommandItem>
             <CommandItem>Trouve un nom stylé pour une app météo</CommandItem>
             <CommandItem>
