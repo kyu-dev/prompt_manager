@@ -4,6 +4,7 @@ import About from './pages/About';
 import LoginPage from './auth/LoginPage';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoutes';
+import Learn from './pages/Learn';
 
 export default function AppRoutes() {
   return (
@@ -26,7 +27,16 @@ export default function AppRoutes() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/learn"
+            element={
+              <ProtectedRoute>
+                <Learn />
+              </ProtectedRoute>
+            }
+          />
         </Route>
+
         <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>
