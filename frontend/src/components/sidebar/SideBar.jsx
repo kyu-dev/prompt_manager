@@ -68,7 +68,7 @@ const SideBar = () => {
   //============================================//
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen ">
       <nav
         className={`bg-background border-r ${
           isOpen ? 'w-64' : 'w-16'

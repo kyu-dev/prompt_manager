@@ -1,19 +1,47 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import matter from 'gray-matter';
 
-const posts = [
-  { slug: 'intro', title: 'Introduction au Blog' },
-  { slug: 'react-guide', title: 'Guide React pour Débutants' },
-  { slug: 'ai-vs-dev', title: 'IA vs Développeur : Qui gagne ?' },
-];
+const slugs = ['ai-vs-dev'];
 
 const Blog = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const loadedPosts = await Promise.all(
+        slugs.map(async (slug) => {
+          const res = await fetch(`/blog/${slug}.md`);
+          const text = await res.text();
+          const { data } = matter(text);
+          return {
+            slug,
+            title: data.title || slug,
+            author: data.author || 'Anonyme',
+            date: data.date || 'Inconnue',
+          };
+        })
+      );
+      setPosts(loadedPosts);
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
-    <div className="prose">
-      <h1>Mon blog</h1>
+    <div className="prose mx-auto p-4">
+      <h1>Blog</h1>
       <ul>
         {posts.map((post) => (
           <li key={post.slug}>
-            <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+            <Link to={`/blog/${post.slug}`}>
+              <strong>{post.title}</strong>
+            </Link>
+            <div>
+              <em>
+                Par {post.author} — {post.date}
+              </em>
+            </div>
           </li>
         ))}
       </ul>
