@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/sonner';
 const Layout = () => (
   <div className=" flex flex-row h-full">
     <SideBar />
-    <main className="w-full">
+    <main className="w-full pl-64">
       <Outlet /> {/* Là où les pages enfants s'affichent */}
     </main>
     <Toaster />

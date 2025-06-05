@@ -29,7 +29,7 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className="prose mx-auto p-4">
+    <div className="prose p-4">
       <h1>Blog</h1>
       <ul>
         {posts.map((post) => (
