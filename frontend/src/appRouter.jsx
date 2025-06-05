@@ -4,7 +4,8 @@ import About from './pages/About';
 import LoginPage from './auth/LoginPage';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoutes';
-import Learn from './pages/Learn';
+import Blog from './pages/Blog';
+import PostPage from './pages/PostPage';
 
 export default function AppRoutes() {
   return (
@@ -27,14 +28,8 @@ export default function AppRoutes() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/learn"
-            element={
-              <ProtectedRoute>
-                <Learn />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<PostPage />} />
         </Route>
 
         <Route path="/login" element={<LoginPage />} />
