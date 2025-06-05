@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { SidebarLinks } from './SidebarLinks.jsx';
 import {
   House,
   PanelLeftClose,
   PanelLeftOpen,
-  CirclePlus,
-  FolderPlus,
   LibraryBig,
   Star,
 } from 'lucide-react';
@@ -16,9 +14,14 @@ import { CreatPromptBtn } from './CreatPromptBtn.jsx';
 import { CreatFolderBtn } from './CreatFolderBtn.jsx';
 import { LogoutButton } from './LogoutButton';
 import FolderList from './FolderList.jsx';
+import { useSidebarStore } from '@/store/sidebar.js';
 
 const SideBar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const { isOpen, toggle: rawToggle } = useSidebarStore();
+
+  const toggle = useCallback(() => {
+    rawToggle();
+  }, [rawToggle]);
 
   //liens des button
   const links = [
@@ -45,14 +48,11 @@ const SideBar = () => {
     },
   ];
 
-  const toggleSidebar = () => {
-    setIsOpen((prev) => !prev);
-  };
-
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
-        toggleSidebar();
+        e.preventDefault();
+        toggle();
       }
     };
 
@@ -61,7 +61,7 @@ const SideBar = () => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [toggle]);
 
   //============================================//
   //=============== COMPONENTS =================//
@@ -99,7 +99,7 @@ const SideBar = () => {
 
         <div className={`p-4 mt-auto ${isOpen && 'flex justify-between'}`}>
           <Button
-            onClick={toggleSidebar}
+            onClick={toggle}
             variant="ghost"
             size="icon"
             aria-label="Toggle Sidebar"
