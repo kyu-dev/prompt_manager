@@ -33,7 +33,23 @@ export const getPrompts = async (req, res) => {
       [user_id]
     );
 
-    res.status(200).json(result.rows); // C'est ici que tu dois renvoyer les données
+    res.status(200).json(result.rows); 
+  } catch (err) {
+    console.error('Erreur lors de la récupération des prompts', err);
+    res.status(500).json({ message: 'Une erreur est survenue.' });
+  }
+};
+
+export const getPrompsOrderedByCopiedAt = async (req, res) => {
+  try {
+    const user_id = req.user.id;
+
+    const result = await client.query(
+      'SELECT * FROM prompts WHERE user_id = $1 ORDER BY copiedat DESC NULLS LAST',
+      [user_id]
+    );
+
+    res.status(200).json(result.rows);
   } catch (err) {
     console.error('Erreur lors de la récupération des prompts', err);
     res.status(500).json({ message: 'Une erreur est survenue.' });
