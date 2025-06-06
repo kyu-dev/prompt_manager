@@ -15,6 +15,23 @@ export async function apiGetPrompt() {
   }
 }
 
+export async function apiGetPromptOrderByCopiedAt() {
+  try {
+    const res = await fetch('http://localhost:3000/prompt/getorderbycopiedat', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+    const json = await res.json();
+
+    return json;
+  } catch (error) {
+    console.error('Erreur lors de la connexion:', error);
+  }
+}
+
 export async function apiCreatePrompt(title, content, folder_id) {
   try {
     const res = await fetch('http://localhost:3000/prompt/create', {

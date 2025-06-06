@@ -5,18 +5,31 @@ import {
   apiCreatePrompt,
   apiEditPrompt,
   apiCopiedAt,
+  apiGetPromptOrderByCopiedAt,
 } from '../api/prompts';
 
 export const usePrompt = () => {
   const [prompts, setPrompts] = useState([]);
+  const [promptsByCopy, setPromptsByCopy] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  //with loading permet de savoir si le fetch à besoin d'un loading ou non afin de ne pas altérer l'ux quand il n'est pas nécéssaire
-  async function fetchPrompts(withLoading = true) {
+  // withLoading permet de désactiver le spinner pour certains appels
+  async function fetchPrompts(withLoading = true, variant = 'default') {
     if (withLoading) setLoading(true);
     try {
-      const data = await apiGetPrompt();
-      setPrompts(data);
+      let data;
+      switch (variant) {
+        case 'copied':
+          data = await apiGetPromptOrderByCopiedAt();
+          setPromptsByCopy(data);
+          break;
+
+        case 'default':
+        default:
+          data = await apiGetPrompt();
+          setPrompts(data);
+          break;
+      }
     } catch (error) {
       console.error('Erreur lors de la récupération des prompts:', error);
     } finally {
@@ -28,7 +41,7 @@ export const usePrompt = () => {
     setLoading(true);
     try {
       await apiDeletePrompt(promptId);
-      fetchPrompts(false); //on ignore le loading de fetch
+      fetchPrompts(false);
     } catch (error) {
       console.error('Erreur lors de la suppression du prompt:', error);
     } finally {
@@ -40,7 +53,7 @@ export const usePrompt = () => {
     setLoading(true);
     try {
       await apiCreatePrompt(title, content, folder_id);
-      await fetchPrompts(false); // Recharge les prompts après la création
+      await fetchPrompts(false);
     } catch (error) {
       console.error('Erreur lors de la création du prompt:', error);
     } finally {
@@ -60,8 +73,7 @@ export const usePrompt = () => {
     }
   };
 
-
-  const handleCopiedAt = async (id)=>{
+  const handleCopiedAt = async (id) => {
     setLoading(true);
     try {
       await apiCopiedAt(id);
@@ -71,7 +83,7 @@ export const usePrompt = () => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchPrompts();
@@ -79,11 +91,12 @@ export const usePrompt = () => {
 
   return {
     prompts,
+    promptsByCopy, 
     loading,
     fetchPrompts,
     handleDeletePrompt,
     handleCreatePrompt,
     handleEditPrompt,
-    handleCopiedAt
+    handleCopiedAt,
   };
 };
