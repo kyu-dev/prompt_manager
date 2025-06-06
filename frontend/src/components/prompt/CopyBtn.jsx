@@ -4,8 +4,8 @@ import { toast } from 'sonner';
 import { Copy } from 'lucide-react';
 import { usePrompt } from '@/hooks/usePrompt';
 
-const CopyBtn = ({ content, title }) => {
-  const { handleCopiedAt, prompt } = usePrompt();
+const CopyBtn = ({ content, title, id }) => {
+  const { handleCopiedAt } = usePrompt();
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(content);
@@ -19,7 +19,7 @@ const CopyBtn = ({ content, title }) => {
         label: 'Undo',
       },
     });
-    handleCopiedAt(prompt.id);
+    handleCopiedAt(id);
   };
 
   return (

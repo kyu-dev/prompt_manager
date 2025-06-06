@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
-import { DeleteIcon, Trash } from 'lucide-react';
+import { Trash } from 'lucide-react';
 import { EditPromptBtn } from './EditPromptBtn';
 import CopyBtn from './CopyBtn';
 
@@ -11,7 +11,7 @@ const PromptCard = ({ prompt, onDelete, onEdit }) => {
       <p className="text-sm text-muted-foreground truncate">{prompt.content}</p>
 
       <div className="flex justify-end gap-2">
-        <CopyBtn content={prompt.content} title={prompt.title} />
+        <CopyBtn content={prompt.content} title={prompt.title} id={prompt.id} />
         <EditPromptBtn
           id={prompt.id}
           title={prompt.title}
