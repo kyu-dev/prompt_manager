@@ -19,7 +19,7 @@ const PromptCard = ({ prompt, onDelete, onEdit, onCopy }) => {
           content={prompt.content}
           title={prompt.title}
           id={prompt.id}
-          onCopy={onCopy} // 👈 ici !
+          onCopy={onCopy}
         />
         <EditPromptBtn
           id={prompt.id}
@@ -37,5 +37,4 @@ const PromptCard = ({ prompt, onDelete, onEdit, onCopy }) => {
     </Card>
   );
 };
-
 export default PromptCard;
