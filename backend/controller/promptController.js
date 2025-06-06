@@ -78,20 +78,26 @@ export const editPrompt = async (req, res) => {
   }
 };
 
-export const copiedat = async ( req, res)=>{
+export const copiedat = async (req, res) => {
   const user_id = req.user.id;
-  const {copiedat, id } =req.body
-  try{
+  const { copiedat, id } = req.body;
+
+  try {
     const result = await client.query(
       'UPDATE prompts SET copiedat = $1 WHERE id = $2 AND user_id = $3 RETURNING *;',
       [copiedat, id, user_id]
     );
-    
-  }catch(error){
-    console.error('Erreur lors de la modification du prompt', err);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Prompt non trouvé ou non autorisé.' });
+    }
+
+    res.status(200).json(result.rows[0]); 
+  } catch (error) {
+    console.error('Erreur lors de la modification du prompt', error);
     res.status(500).json({ message: 'Une erreur est survenue.' });
   }
-}
+};
 
 export const deletePrompt = async (req, res) => {
   const user_id = req.user.id;

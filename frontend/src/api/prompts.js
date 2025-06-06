@@ -95,7 +95,7 @@ export async function apiEditPrompt(id, folder_id, content, title) {
 }
 
 
-export async function apiCopiedAt(copiedat, id){
+export async function apiCopiedAt(id){
   try{
   const res = await fetch('http://localhost:3000/prompt/copied', {
     method: 'PUT',
@@ -106,7 +106,7 @@ export async function apiCopiedAt(copiedat, id){
     body: JSON.stringify({
       id: id,
       copiedat: new Date().toISOString(),
-    }),
+    })
   });
     const json = await res.json();
     return json;

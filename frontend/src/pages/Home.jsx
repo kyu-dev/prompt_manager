@@ -4,8 +4,13 @@ import { DeleteIcon, Clock } from 'lucide-react';
 import PromptCard from '../components/prompt/PromptCard';
 
 const Home = () => {
-  const { prompts, loading, handleDeletePrompt, handleEditPrompt } =
-    usePrompt();
+  const {
+    promptsByCopy,
+    prompts,
+    loading,
+    handleDeletePrompt,
+    handleEditPrompt,
+  } = usePrompt();
 
   return (
     <div className="flex flex-col mx-auto px-8 pt-8 w-screen gap-5">
@@ -18,19 +23,35 @@ const Home = () => {
       {loading ? (
         <p className="text-muted-foreground">Chargement en cours...</p>
       ) : (
-        <div className="flex gap-6 overflow-x-auto py-2">
-          {prompts.length > 0 ? (
-            prompts.map((prompt, index) => (
-              <PromptCard
-                key={index}
-                prompt={prompt}
-                onDelete={handleDeletePrompt}
-                onEdit={handleEditPrompt}
-              />
-            ))
-          ) : (
-            <p>Aucun prompt pour l'instant 🫠</p>
-          )}
+        <div>
+          <div className="flex gap-6 overflow-x-auto py-2">
+            {promptsByCopy.length > 0 ? (
+              promptsByCopy.map((prompt, index) => (
+                <PromptCard
+                  key={index}
+                  prompt={prompt}
+                  onDelete={handleDeletePrompt}
+                  onEdit={handleEditPrompt}
+                />
+              ))
+            ) : (
+              <p>Aucun prompt pour l'instant 🫠</p>
+            )}
+          </div>
+          <div className="flex gap-6 overflow-x-auto py-2">
+            {prompts.length > 0 ? (
+              prompts.map((prompt, index) => (
+                <PromptCard
+                  key={index}
+                  prompt={prompt}
+                  onDelete={handleDeletePrompt}
+                  onEdit={handleEditPrompt}
+                />
+              ))
+            ) : (
+              <p>Aucun prompt pour l'instant 🫠</p>
+            )}
+          </div>
         </div>
       )}
     </div>
