@@ -13,7 +13,6 @@ export const usePrompt = () => {
   const [promptsByCopy, setPromptsByCopy] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // withLoading permet de désactiver le spinner pour certains appels
   async function fetchPrompts(withLoading = true, variant = 'default') {
     if (withLoading) setLoading(true);
     try {
@@ -23,7 +22,6 @@ export const usePrompt = () => {
           data = await apiGetPromptOrderByCopiedAt();
           setPromptsByCopy(data);
           break;
-
         case 'default':
         default:
           data = await apiGetPrompt();
@@ -41,7 +39,7 @@ export const usePrompt = () => {
     setLoading(true);
     try {
       await apiDeletePrompt(promptId);
-      fetchPrompts(false);
+      await fetchPrompts(false);
     } catch (error) {
       console.error('Erreur lors de la suppression du prompt:', error);
     } finally {
@@ -65,7 +63,7 @@ export const usePrompt = () => {
     setLoading(true);
     try {
       await apiEditPrompt(id, folder_id, content, title);
-      fetchPrompts(false);
+      await fetchPrompts(false);
     } catch (error) {
       console.error("Erreur lors de l'édition du prompt", error);
     } finally {
@@ -77,7 +75,9 @@ export const usePrompt = () => {
     setLoading(true);
     try {
       await apiCopiedAt(id);
-      fetchPrompts(false);
+      await Promise.all([
+        fetchPrompts(false, 'copied'),
+      ]);
     } catch (error) {
       console.error("Erreur lors de l'édition du prompt", error);
     } finally {
@@ -86,12 +86,15 @@ export const usePrompt = () => {
   };
 
   useEffect(() => {
-    fetchPrompts();
+    
+      fetchPrompts(true, 'default');
+      fetchPrompts(true, 'copied');
+    
   }, []);
 
   return {
     prompts,
-    promptsByCopy, 
+    promptsByCopy,
     loading,
     fetchPrompts,
     handleDeletePrompt,
