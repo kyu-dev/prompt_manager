@@ -4,14 +4,23 @@ import { Trash } from 'lucide-react';
 import { EditPromptBtn } from './EditPromptBtn';
 import CopyBtn from './CopyBtn';
 
-const PromptCard = ({ prompt, onDelete, onEdit }) => {
+const PromptCard = ({ prompt, onDelete, onEdit, onCopy }) => {
   return (
-    <Card className="w-[300px] gap-4 px-4 flex ">
-      <h3 className="text-xl font-semibold">{prompt.title}</h3>
-      <p className="text-sm text-muted-foreground truncate">{prompt.content}</p>
+    <Card className="w-[300px] gap-4 px-4 flex flex-col justify-between">
+      <div>
+        <h3 className="text-xl font-semibold">{prompt.title}</h3>
+        <p className="text-sm text-muted-foreground truncate">
+          {prompt.content}
+        </p>
+      </div>
 
       <div className="flex justify-end gap-2">
-        <CopyBtn content={prompt.content} title={prompt.title} id={prompt.id} />
+        <CopyBtn
+          content={prompt.content}
+          title={prompt.title}
+          id={prompt.id}
+          onCopy={onCopy} // 👈 ici !
+        />
         <EditPromptBtn
           id={prompt.id}
           title={prompt.title}

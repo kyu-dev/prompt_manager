@@ -10,6 +10,7 @@ const Home = () => {
     loading,
     handleDeletePrompt,
     handleEditPrompt,
+    handleCopiedAt,
   } = usePrompt();
 
   return (
@@ -32,6 +33,7 @@ const Home = () => {
                   prompt={prompt}
                   onDelete={handleDeletePrompt}
                   onEdit={handleEditPrompt}
+                  onCopy={handleCopiedAt}
                 />
               ))
             ) : (
@@ -46,6 +48,7 @@ const Home = () => {
                   prompt={prompt}
                   onDelete={handleDeletePrompt}
                   onEdit={handleEditPrompt}
+                  onCopy={handleCopiedAt}
                 />
               ))
             ) : (
