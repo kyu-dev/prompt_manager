@@ -8,7 +8,7 @@ const Home = () => {
     usePrompt();
 
   return (
-    <div className="container flex flex-col mx-auto px-8 pt-8 w-screen gap-5">
+    <div className="flex flex-col mx-auto px-8 pt-8 w-screen gap-5">
       <h1 className="text-6xl font-bold mb-20">Hello Arthur 👋</h1>
 
       <h2 className="text-2xl flex items-center gap-2">

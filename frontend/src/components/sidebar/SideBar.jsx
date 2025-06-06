@@ -6,6 +6,7 @@ import {
   PanelLeftOpen,
   LibraryBig,
   Star,
+  Newspaper,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -37,6 +38,13 @@ const SideBar = () => {
       type: 'link',
       icon: <LibraryBig />,
       label: 'Library',
+      variant: 'ghost',
+    },
+    {
+      to: 'blog',
+      type: 'link',
+      icon: <Newspaper />,
+      label: 'Learn',
       variant: 'ghost',
     },
     {
