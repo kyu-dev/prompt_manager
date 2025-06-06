@@ -76,3 +76,24 @@ export async function apiEditPrompt(id, folder_id, content, title) {
     console.error("Erreur lors de l'édition du prompt", err);
   }
 }
+
+
+export async function apiCopiedAt(copiedat, id){
+  try{
+  const res = await fetch('http://localhost:3000/prompt/copied', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      id: id,
+      copiedat: new Date().toISOString(),
+    }),
+  });
+    const json = await res.json();
+    return json;
+  } catch (err) {
+  console.error("Erreur lors de l'édition du prompt", err);
+  }
+}

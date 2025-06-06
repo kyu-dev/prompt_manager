@@ -2,8 +2,11 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { Copy } from 'lucide-react';
+import { usePrompt } from '@/hooks/usePrompt';
 
 const CopyBtn = ({ content, title }) => {
+  const { handleCopiedAt, prompt } = usePrompt();
+
   const handleCopy = async () => {
     await navigator.clipboard.writeText(content);
     toast('Copié', {
@@ -16,6 +19,7 @@ const CopyBtn = ({ content, title }) => {
         label: 'Undo',
       },
     });
+    handleCopiedAt(prompt.id);
   };
 
   return (

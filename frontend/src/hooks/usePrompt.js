@@ -4,6 +4,7 @@ import {
   apiGetPrompt,
   apiCreatePrompt,
   apiEditPrompt,
+  apiCopiedAt,
 } from '../api/prompts';
 
 export const usePrompt = () => {
@@ -59,6 +60,19 @@ export const usePrompt = () => {
     }
   };
 
+
+  const handleCopiedAt = async (id)=>{
+    setLoading(true);
+    try {
+      await apiCopiedAt(id);
+      fetchPrompts(false);
+    } catch (error) {
+      console.error("Erreur lors de l'édition du prompt", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     fetchPrompts();
   }, []);
@@ -70,5 +84,6 @@ export const usePrompt = () => {
     handleDeletePrompt,
     handleCreatePrompt,
     handleEditPrompt,
+    handleCopiedAt
   };
 };

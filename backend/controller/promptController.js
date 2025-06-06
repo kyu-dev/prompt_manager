@@ -22,7 +22,9 @@ export const createPrompt = async (req, res) => {
   }
 };
 
-export const getPrompt = async (req, res) => {
+
+
+export const getPrompts = async (req, res) => {
   try {
     const user_id = req.user.id;
 
@@ -59,6 +61,21 @@ export const editPrompt = async (req, res) => {
     res.status(500).json({ message: 'Une erreur est survenue.' });
   }
 };
+
+export const copiedat = async ( req, res)=>{
+  const user_id = req.user.id;
+  const {copiedat, id } =req.body
+  try{
+    const result = await client.query(
+      'UPDATE prompts SET copiedat = $1 WHERE id = $2 AND user_id = $3 RETURNING *;',
+      [copiedat, id, user_id]
+    );
+    
+  }catch(error){
+    console.error('Erreur lors de la modification du prompt', err);
+    res.status(500).json({ message: 'Une erreur est survenue.' });
+  }
+}
 
 export const deletePrompt = async (req, res) => {
   const user_id = req.user.id;
