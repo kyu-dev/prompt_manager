@@ -1,5 +1,6 @@
 import { DeleteIcon, Clock } from 'lucide-react';
 import OrderedPromptList from '@/components/prompt/OrderedPromptList';
+import Chat from '../components/chat/Chat';
 
 const Home = () => {
   return (
@@ -8,14 +9,12 @@ const Home = () => {
       <h2 className="text-2xl flex items-center gap-2">
         Historique des prompts <Clock />
       </h2>
-      <>
-        <OrderedPromptList />
-      </>
-
+      <OrderedPromptList />
       <h2 className="text-2xl flex items-center gap-2">
         Time to test ur prompt
         <Clock />
       </h2>
+      <Chat />
     </div>
   );
 };
