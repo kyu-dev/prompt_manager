@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import About from './pages/About';
 import LoginPage from './auth/LoginPage';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoutes';
 import Blog from './pages/Blog';
 import PostPage from './pages/PostPage';
+import Library from './pages/Library';
 
 export default function AppRoutes() {
   return (
@@ -21,10 +21,10 @@ export default function AppRoutes() {
             }
           />
           <Route
-            path="/about"
+            path="/library"
             element={
               <ProtectedRoute>
-                <About />
+                <Library />
               </ProtectedRoute>
             }
           />

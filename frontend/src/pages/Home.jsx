@@ -1,5 +1,4 @@
 import { DeleteIcon, Clock } from 'lucide-react';
-import AllPromptList from '@/components/prompt/AllPromptList';
 import OrderedPromptList from '@/components/prompt/OrderedPromptList';
 
 const Home = () => {
@@ -11,8 +10,12 @@ const Home = () => {
       </h2>
       <>
         <OrderedPromptList />
-        <AllPromptList />
       </>
+
+      <h2 className="text-2xl flex items-center gap-2">
+        Time to test ur prompt
+        <Clock />
+      </h2>
     </div>
   );
 };
