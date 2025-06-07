@@ -49,8 +49,9 @@ export const editFolder = async (req, res) => {
 };
 
 export const deleteFolder = async (req, res) => {
+
   const user_id = req.user.id;
-  const { id } = req.body;
+  const id = req.params.id;
   try {
     const result = await client.query(
       'DELETE FROM folders WHERE id= $1 AND user_id = $2 RETURNING *;',

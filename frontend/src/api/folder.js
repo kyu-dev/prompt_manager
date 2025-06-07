@@ -36,20 +36,20 @@ export async function apiCreateFolder(title) {
 
 export async function apiDeleteFolder(id) {
   try {
-    const res = await fetch('http://localhost:3000/folder/delete', {
+    const res = await fetch(`http://localhost:3000/folder/delete/${id}`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       credentials: 'include',
-      body: JSON.stringify({
-        id: id,
-      }),
     });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Erreur HTTP ${res.status} : ${text}`);
+    }
+
     const json = await res.json();
     return json;
   } catch (error) {
-    console.error(error);
+    console.error('❌ erreur lors de la suppression du dossier :', error);
   }
 }
 
