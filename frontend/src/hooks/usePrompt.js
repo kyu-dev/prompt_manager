@@ -39,7 +39,10 @@ export const usePrompt = () => {
     setLoading(true);
     try {
       await apiDeletePrompt(promptId);
-      await fetchPrompts(false);
+      await Promise.all([
+        fetchPrompts(false, 'default'),
+        fetchPrompts(false, 'copied'),
+      ]);
     } catch (error) {
       console.error('Erreur lors de la suppression du prompt:', error);
     } finally {
