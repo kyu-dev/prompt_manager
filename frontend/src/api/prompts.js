@@ -55,23 +55,21 @@ export async function apiCreatePrompt(title, content, folder_id) {
 
 export async function apiDeletePrompt(id) {
   try {
-    const res = await fetch('http://localhost:3000/prompt/delete', {
+    const res = await fetch(`http://localhost:3000/prompt/delete/${id}`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({
-        id: id,
-      }),
+      credentials: "include"
     });
+
+    if (!res.ok) {
+      throw new Error(`Erreur HTTP : ${res.status}`);
+    }
+
     const json = await res.json();
     return json;
   } catch (err) {
     console.error('Erreur lors de la suppression du prompt:', err);
   }
 }
-
 export async function apiEditPrompt(id, folder_id, content, title) {
   try {
     const res = await fetch('http://localhost:3000/prompt/edit', {

@@ -100,24 +100,20 @@ export const copiedat = async (req, res) => {
 };
 
 export const deletePrompt = async (req, res) => {
-  const user_id = req.user.id;
-  const { id } = req.body;
+  const id = req.params.id;
   try {
+    const user_id = req.user.id;
     const result = await client.query(
-      'DELETE FROM prompts WHERE id= $1 AND user_id = $2 RETURNING *;',
+      'DELETE FROM prompts WHERE id = $1 AND user_id = $2 RETURNING *;',
       [id, user_id]
     );
-    if (result.rows.length === 0) {
-      return res
-        .status(404)
-        .json({ message: 'Prompt introuvable ou accès interdit 🕵️' });
-    }
 
-    res
-      .status(200)
-      .json({ message: 'Prompt supprimé ✅', deleted: result.rows[0] });
-  } catch (err) {
-    console.error('erreur lors de la supréssion du prompt', err);
-    res.status(500).json({ message: 'Une erreur est survenue.' });
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Prompt introuvable ou accès interdit 🕵️‍♂️' });
+    }
+    res.status(200).json({ message: `Prompt ${id} supprimé` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Erreur lors de la suppression" });
   }
 };
