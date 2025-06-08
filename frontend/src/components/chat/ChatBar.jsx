@@ -4,10 +4,18 @@ import React from 'react';
 const ChatBar = () => {
   return (
     <div>
-      <form className="border-gray-800 border-2 rounded-2xl w-full py-10 px-2">
-        <div className="flex justify-between">
-          <input placeholder="Poser votre question" />
-          <button>
+      <form className="border border-gray-800 rounded-xl p-4 w-full">
+        <div className="flex gap-2">
+          <textarea
+            className="w-full resize-none overflow-hidden rounded-md  p-2 focus:outline-none focus:ring-0"
+            rows={1}
+            onInput={(e) => {
+              e.target.style.height = 'auto';
+              e.target.style.height = `${e.target.scrollHeight}px`; //auto size par rapport au contenue
+            }}
+            placeholder="Écris ton message ici..."
+          ></textarea>
+          <button type="submit" className="self-end">
             <ArrowRightCircle />
           </button>
         </div>
