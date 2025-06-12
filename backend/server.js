@@ -5,6 +5,7 @@ import './config/passport.js';
 import authRoutes from './routes/authRoutes.js';
 import promptRoutes from './routes/promptRoutes.js';
 import folderRoutes from './routes/folderRoutes.js';
+import geminiRoutes from './routes/geminiRoutes.js';
 import cors from 'cors';
 const app = express();
 const PORT = 3000;
@@ -34,6 +35,7 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 app.use('/prompt', promptRoutes);
 app.use('/folder', folderRoutes);
+app.use('/gemini', geminiRoutes)
 
 app.listen(PORT, () => {
   console.log('🚀 Serveur en écoute sur le port 3000 !');

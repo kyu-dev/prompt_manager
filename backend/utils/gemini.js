@@ -5,12 +5,15 @@ const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
   });
 
-async function main() {
+async function main(content) {
   const response = await ai.models.generateContent({
     model: "gemini-2.0-flash",
-    contents: "Explain how AI works in a few words",
+    contents: content
   });
   console.log(response.text);
 }
 
-main();
+export default main;
+
+
+
