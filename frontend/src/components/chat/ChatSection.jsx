@@ -1,11 +1,19 @@
 import React from 'react';
+import { usePrompt } from '../../hooks/usePrompt';
+import { Button } from '@/components/ui/button';
 
 const ChatSection = ({ messages }) => {
+  const { handleCreatePrompt } = usePrompt();
+
   const getNoteColor = (note) => {
     const numericNote = parseFloat(note);
     if (numericNote >= 8) return 'text-green-600';
     if (numericNote >= 5) return 'text-yellow-600';
     return 'text-red-600';
+  };
+
+  const handleCreatePromptFromSuggestion = (correction) => {
+    handleCreatePrompt('Sugestion', correction, null); // Vous pouvez ajuster le titre et le dossier_id selon vos besoins
   };
 
   return (
@@ -55,6 +63,12 @@ const ChatSection = ({ messages }) => {
                           {parsed.correction}
                         </span>
                       </p>
+                      <Button
+                        onClick={() => handleCreatePromptFromSuggestion(parsed.correction)}
+                        className="mt-2"
+                      >
+                        Créer un prompt à partir de cette suggestion
+                      </Button>
                     </div>
                   );
                 } catch (e) {
