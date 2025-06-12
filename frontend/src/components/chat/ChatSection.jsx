@@ -12,7 +12,7 @@ const ChatSection = ({ messages }) => {
         >
           <div
             className={`max-w-[80%] p-3 rounded-lg ${
-              msg.sender === 'user'
+              msg.sender === 'user' // change le style selon si c'est l'user ou gemini qui envoie le message
                 ? 'bg-primary text-primary-foreground'
                 : 'bg-secondary text-secondary-foreground'
             }`}
