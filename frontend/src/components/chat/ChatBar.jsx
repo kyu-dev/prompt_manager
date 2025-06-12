@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
 import { ArrowRightCircle } from 'lucide-react';
-import { apiAskGemini } from '../../api/gemini';
 
-const ChatBar = () => {
-  const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!message.trim()) return;
-
-    try {
-      const response = await apiAskGemini(message);
-      console.log(response);  // Tu pourras ici gérer la réponse plus tard
-      setMessage(''); // Reset le champ après envoi
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const ChatBar = ({ onSendMessage }) => {
+    const [message, setMessage] = useState('');
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (!message.trim()) return;
+      await onSendMessage(message);
+      setMessage('');
+    };
 
   return (
     <div>
@@ -42,5 +35,6 @@ const ChatBar = () => {
     </div>
   );
 };
+
 
 export default ChatBar;
